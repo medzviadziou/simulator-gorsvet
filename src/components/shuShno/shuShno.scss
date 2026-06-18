@@ -122,15 +122,50 @@
     filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.9));
   }
 
-  &__image--light {
-    filter: drop-shadow(10px 10px 15px rgb(255 255 255 / 0.9));
-  }
-
   &__image--plain {
     filter: none;
   }
 
-  &__image--off {
+  &__lamp {
+    position: relative;
+    height: 100%;
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+
+  &__lamp::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 38%;
+    z-index: 0;
+    width: 115%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    opacity: 1;
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.75) 0 16%, rgba(255, 247, 200, 0.45) 34%, rgba(255, 255, 255, 0.16) 58%, transparent 78%);
+    filter: blur(8px);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.12s linear;
+    pointer-events: none;
+  }
+
+  &__lamp--off::before {
+    opacity: 0;
+  }
+
+  &__image--lamp {
+    position: relative;
+    z-index: 1;
+    filter: none;
+    transition: filter 0.12s linear;
+  }
+
+  &__lamp--off &__image--lamp {
     filter: grayscale(1) brightness(0.35);
   }
 

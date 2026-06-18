@@ -42,9 +42,6 @@ export default function ShuShno({ simulatorState, virtualTime, timeSchedule, dis
             onPointerEnter: handleMpPressStart,
             onPointerLeave: handleMpPressEnd,
             onPointerCancel: handleMpPressEnd,
-            onPointerDown: handleMpPressStart,
-            onFocus: handleMpPressStart,
-            onBlur: handleMpPressEnd,
             "aria-label": "MP",
         };
 
@@ -88,11 +85,13 @@ export default function ShuShno({ simulatorState, virtualTime, timeSchedule, dis
 
                     <div className="shu-shno__section shu-shno__section--feed" style={{ height: "6.6%" }}>
                         <div className="shu-shno__fider">
-                            <img
-                                src={imgEl1}
-                                alt="EL1"
-                                className={`shu-shno__image shu-shno__image--light ${isEl1Off ? "shu-shno__image--off" : ""}`}
-                            />
+                            <div className={`shu-shno__lamp ${isEl1Off ? "shu-shno__lamp--off" : ""}`}>
+                                <img
+                                    src={imgEl1}
+                                    alt="EL1"
+                                    className="shu-shno__image shu-shno__image--lamp"
+                                />
+                            </div>
                         </div>
                         <div className="shu-shno__sensor">
                             <button
