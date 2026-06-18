@@ -133,6 +133,19 @@
       overflow: hidden;
     }
 
+    &__panel--faults,
+    &__panel--start-errors,
+    &__panel--fuse-errors {
+      width: 100%;
+    }
+
+    &__panel--faults &__fault-list,
+    &__panel--start-errors &__fault-list,
+    &__panel--fuse-errors &__fault-list {
+      width: max-content;
+      max-width: 100%;
+    }
+
     &__panel--control {
       order: 1;
     }
