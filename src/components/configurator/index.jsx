@@ -1,5 +1,5 @@
 ﻿import "./configurator.scss";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ChannelManagement from "../channelManagement/index.jsx";
 import Lightning from "../lightning/index.jsx";
 import Alarm from "../alarm/index.jsx";
@@ -14,6 +14,8 @@ const KM_ACTIONS = {
 
 const DISCRETE_COUNT = 11;
 export default function Configurator({ simulatorState, virtualTime, setVirtualTime, onTimeScheduleChange, dispatch, actions, channelRelayCommands = {}, onChannelModeChange, onChannelRelayStateChange, kmStopHold = {}, channelRelayStates = {} }) {
+    const faultColumnRef = useRef(null);
+    const [faultColumnHeight, setFaultColumnHeight] = useState(null);
     const displayedKmStates = useDelayedKmStates(simulatorState);
     const displayedFeederStates = useDelayedFeederStates(simulatorState);
     const hasPower = useDelayedConfiguratorPower(Boolean(simulatorState?.qs1 && simulatorState?.sf?.sf1));
@@ -40,9 +42,39 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
     const module1StateIndicators = getModule1StateIndicators({ hasPower, simulatorState, displayedKmStates, displayedFeederStates, defaultState: indicatorState });
     const module1FaultIndicators = getModule1FaultIndicators({ hasPower, simulatorState, fuseFaults, defaultState: indicatorState });
 
+    useEffect(() => {
+        const element = faultColumnRef.current;
+
+        if (!element) {
+            return undefined;
+        }
+
+        const updateHeight = () => {
+            setFaultColumnHeight(Math.ceil(element.getBoundingClientRect().height));
+        };
+
+        updateHeight();
+
+        if (typeof ResizeObserver === "undefined") {
+            window.addEventListener("resize", updateHeight);
+            return () => window.removeEventListener("resize", updateHeight);
+        }
+
+        const resizeObserver = new ResizeObserver(updateHeight);
+        resizeObserver.observe(element);
+        window.addEventListener("resize", updateHeight);
+        return () => {
+            resizeObserver.disconnect();
+            window.removeEventListener("resize", updateHeight);
+        };
+    }, []);
+
     return (
-        <div className={`configurator ${disabled ? "configurator--disabled" : ""}`}>
-            <div className="configurator__column">
+        <div
+            className={`configurator ${disabled ? "configurator--disabled" : ""}`}
+            style={faultColumnHeight ? { "--configurator-fault-stack-height": `${faultColumnHeight}px` } : undefined}
+        >
+            <div className="configurator__column configurator__column--faults" ref={faultColumnRef}>
                 <div className="configurator__panel configurator__panel--faults">
                     <div className="configurator__panel-title">Неисправности</div>
                     <div className="configurator__fault-list">

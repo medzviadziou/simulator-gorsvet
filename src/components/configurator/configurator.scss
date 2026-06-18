@@ -248,28 +248,22 @@
     grid-auto-flow: row dense;
     align-items: start;
 
-    &__panel--faults,
-    &__panel--start-errors,
-    &__panel--fuse-errors {
+    &__column--faults {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      min-width: 0;
       grid-column: 1;
-    }
-
-    &__panel--faults {
       grid-row: 1;
-    }
-
-    &__panel--start-errors {
-      grid-row: 2;
-    }
-
-    &__panel--fuse-errors {
-      grid-row: 3;
     }
 
     &__panel--control {
       grid-column: 2;
-      grid-row: 1 / span 3;
-      align-self: stretch;
+      grid-row: 1;
+      align-self: start;
+      height: var(--configurator-fault-stack-height, auto);
+      max-height: var(--configurator-fault-stack-height, none);
       min-height: 0;
       display: flex;
       flex-direction: column;
