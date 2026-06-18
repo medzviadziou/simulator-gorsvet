@@ -287,8 +287,8 @@
       grid-column: 2;
       grid-row: 1;
       align-self: start;
-      justify-self: start;
-      width: min(100%, 620px);
+      justify-self: stretch;
+      width: 100%;
       height: var(--configurator-fault-stack-height, auto);
       max-height: var(--configurator-fault-stack-height, none);
       min-height: 0;
@@ -301,14 +301,25 @@
     }
 
     &__panel--control &__channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
       flex: 1 1 auto;
       min-height: 0;
-      flex-direction: row;
-      flex-wrap: wrap;
+      align-items: stretch;
       align-content: flex-start;
       overflow-x: hidden;
       overflow-y: auto;
       scrollbar-width: thin;
+    }
+
+    &__panel--control &__channel-panel {
+      width: 100%;
+      min-width: 0;
+    }
+
+    &__panel--control &__channel-block .channel {
+      width: 100%;
+      max-width: 330px;
     }
 
     &__panel--state,
