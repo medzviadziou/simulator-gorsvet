@@ -301,11 +301,11 @@
     }
 
     &__panel--control &__channels {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr));
       flex: 1 1 auto;
       min-height: 0;
-      align-items: stretch;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
       align-content: flex-start;
       overflow-x: hidden;
       overflow-y: auto;
@@ -313,13 +313,14 @@
     }
 
     &__panel--control &__channel-panel {
-      width: 100%;
+      flex: 0 0 300px;
+      width: min(300px, calc(100% - 10px));
       min-width: 0;
     }
 
     &__panel--control &__channel-block .channel {
-      width: 100%;
-      max-width: 330px;
+      width: 290px;
+      max-width: 100%;
     }
 
     &__panel--state,
