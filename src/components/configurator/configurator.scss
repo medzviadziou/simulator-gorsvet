@@ -139,11 +139,21 @@
       width: 100%;
     }
 
-    &__panel--faults &__fault-list,
+    &__panel--faults &__fault-list {
+      width: max-content;
+      max-width: 100%;
+    }
+
     &__panel--start-errors &__fault-list,
     &__panel--fuse-errors &__fault-list {
-      width: max-content;
-      max-width: calc(100% - 8px);
+      width: 100%;
+      max-width: none;
+      padding-right: 8px;
+    }
+
+    &__panel--start-errors &__fault,
+    &__panel--fuse-errors &__fault {
+      padding: 0;
     }
 
     &__panel--control {
@@ -243,8 +253,9 @@
 
     &__fault-list--grid {
       grid-auto-flow: column;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 82px);
       grid-template-rows: repeat(3, auto);
+      justify-content: start;
       gap: 0 4px;
     }
 

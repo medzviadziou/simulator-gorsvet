@@ -254,7 +254,7 @@ body,
     height: auto;
     min-height: 100vh;
     min-height: 100dvh;
-    padding: 8px;
+    padding: 0;
     overflow: visible;
     background: #eef1f2;
   }
