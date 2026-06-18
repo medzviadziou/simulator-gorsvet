@@ -403,11 +403,11 @@ body,
   }
 
   .app__main > .shu-shno {
-    padding: 5px 0;
+    padding: 0;
   }
 
   .app__main > .shu-shno .shu-shno__scheme {
-    width: min(94vw, 390px);
+    width: 100%;
   }
 }
 
