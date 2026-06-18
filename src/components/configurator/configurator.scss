@@ -361,7 +361,14 @@
     &__panel--start-errors,
     &__panel--fuse-errors {
       width: min(100%, 300px);
-      justify-self: start;
+      justify-self: center;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__module {
+      margin-right: auto;
+      margin-left: auto;
     }
   }
 }
