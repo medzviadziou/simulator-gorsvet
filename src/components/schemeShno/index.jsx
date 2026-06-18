@@ -25,14 +25,25 @@ export default function SchemeShno() {
 
     return (
         <section className="scheme-shno" aria-label="shno schematic">
-            <button
-                type="button"
-                className="scheme-shno__preview"
-                onClick={() => setIsOpen(true)}
-                aria-label="Open scheme"
-            >
-                <img className="scheme-shno__image" src={schemeImage} alt={schemeAlt} />
-            </button>
+            <div className="scheme-shno__previews">
+                <button
+                    type="button"
+                    className="scheme-shno__preview"
+                    onClick={() => setIsOpen(true)}
+                    aria-label="Open scheme"
+                >
+                    <img className="scheme-shno__image" src={schemeImage} alt={schemeAlt} />
+                </button>
+
+                <button
+                    type="button"
+                    className="scheme-shno__preview scheme-shno__preview--secondary"
+                    onClick={() => setIsOpen(true)}
+                    aria-label="Open second scheme"
+                >
+                    <img className="scheme-shno__image" src={schemeImage2} alt={schemeAlt} />
+                </button>
+            </div>
 
             {isOpen ? (
                 <div

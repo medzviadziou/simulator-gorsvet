@@ -300,9 +300,7 @@ body,
   }
 
   .app__panel--configurator {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   }
 
   .app__panel--configurator .app__panel-title {

@@ -286,3 +286,28 @@
   }
 
 }
+
+@media (max-width: 640px) {
+  .time-config {
+    height: auto;
+
+    &__schedule {
+      height: auto;
+      grid-template-columns: 1fr;
+    }
+
+    &__field,
+    &__city,
+    &__checkbox {
+      min-height: 24px;
+    }
+
+    &__field {
+      justify-content: space-between;
+    }
+
+    &__field > span:first-child {
+      text-align: left;
+    }
+  }
+}
