@@ -1,0 +1,233 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+a{
+  text-decoration:none;
+  color: inherit;
+}
+img{
+  max-width: 100%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: top;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.contain {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left:15px;
+  padding-right: 15px;
+}
+
+:root {
+     --Spartan: 'Spartan', sans-serif;
+     --Inter: 'Inter', sans-serif;
+ }
+
+.app {
+  --app-left-width: 1120px;
+  --app-shno-width: calc(100dvh * 0.4033333333);
+  display: grid;
+  grid-template-columns:
+    calc(var(--app-left-width) + var(--app-shno-width))
+    minmax(0, 1fr);
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  scrollbar-width: none;
+}
+
+.app::-webkit-scrollbar {
+  display: none;
+}
+
+.app__main {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.app__main::-webkit-scrollbar {
+  display: none;
+}
+
+.app__left {
+  flex: 0 0 var(--app-left-width);
+  width: var(--app-left-width);
+  min-width: var(--app-left-width);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app__main > .shu-shno {
+  flex: 0 0 var(--app-shno-width);
+  width: var(--app-shno-width);
+  min-width: 0;
+  align-self: stretch;
+  height: 100%;
+  min-height: 0;
+}
+
+.app__right {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 6px;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+  scrollbar-width: none;
+}
+
+.app__right::-webkit-scrollbar {
+  display: none;
+}
+
+.app__skada {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0;
+  background: #eeeeee;
+  border: 1px solid #b8b8b8;
+  box-shadow: inset 0 0 0 1px #f8f8f8;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app__panel {
+  min-width: 0;
+  border: 1px solid #a7b0b5;
+  border-radius: 6px;
+  background: #f7f8f8;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(30, 42, 48, 0.12);
+  overflow: hidden;
+}
+
+.app__panel--configurator {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.app__panel--skada {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 460px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__panel--right {
+  width: 100%;
+}
+
+.app__panel-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 29px;
+  padding: 5px 10px 5px 16px;
+  color: #24343c;
+  background:
+    linear-gradient(#ffffff, #e7ecee);
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #b7c0c5;
+  border-radius: 5px 5px 0 0;
+  font: 700 13px/1.2 Arial, sans-serif;
+  letter-spacing: 0;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.app__panel-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #7f898e;
+}
+
+.app__panel-title span + span {
+  color: #60717a;
+  font-weight: 600;
+}
+
+.app__config-button {
+  margin-left: auto;
+  flex: 0 0 auto;
+  min-height: 22px;
+  padding: 2px 12px;
+  color: #21323a;
+  background: linear-gradient(#ffffff, #dfe6e9);
+  border: 1px solid #9eaab0;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 1px rgba(30, 42, 48, 0.12);
+  font: 700 12px/1.2 Arial, sans-serif;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.app__config-button:hover {
+  background: linear-gradient(#ffffff, #d1dde2);
+  border-color: #7f929d;
+}
+
+.app__config-button:active {
+  background: linear-gradient(#cfd9de, #f6f8f9);
+  box-shadow: inset 0 1px 2px rgba(30, 42, 48, 0.18);
+}
+
+.app__panel > .configurator,
+.app__panel > .app__skada,
+.app__panel > .street-view,
+.app__panel > .scheme-shno {
+  border: 0;
+  box-shadow: none;
+}

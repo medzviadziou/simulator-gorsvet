@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="indicatorGreen" cx="50%" cy="50%" r="58%">
+      <stop offset="0" stop-color="#49ff30"/>
+      <stop offset="0.68" stop-color="#23bd31"/>
+      <stop offset="1" stop-color="#1a9433"/>
+    </radialGradient>
+    <radialGradient id="knobRed" cx="34%" cy="28%" r="78%">
+      <stop offset="0" stop-color="#e4c4c4"/>
+      <stop offset="0.34" stop-color="#ff4040"/>
+      <stop offset="1" stop-color="#c70101"/>
+    </radialGradient>
+    <linearGradient id="releBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#595959"/>
+      <stop offset="1" stop-color="#b5b5b5"/>
+    </linearGradient>
+    <linearGradient id="releBorder" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b5b5b5"/>
+      <stop offset="1" stop-color="#595959"/>
+    </linearGradient>
+    <radialGradient id="darkRing" cx="50%" cy="50%" r="58%">
+      <stop offset="0.55" stop-color="#111"/>
+      <stop offset="1" stop-color="#000"/>
+    </radialGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <circle cx="20" cy="32" r="11" fill="url(#indicatorGreen)"/>
+    <circle cx="20" cy="32" r="11" fill="none" stroke="#222" stroke-opacity="0.7" stroke-width="1.6"/>
+    <circle cx="17.4" cy="29.2" r="3.2" fill="#fff" opacity="0.32"/>
+
+    <rect x="38" y="11" width="16" height="42" rx="5.2" fill="url(#releBody)"/>
+    <rect x="39.6" y="12.6" width="12.8" height="38.8" rx="4" fill="none" stroke="url(#releBorder)" stroke-width="2.4"/>
+    <rect x="40.8" y="14.2" width="10.4" height="35.6" rx="3.4" fill="#505050" opacity="0.22"/>
+
+    <circle cx="46" cy="20" r="7" fill="url(#darkRing)"/>
+    <circle cx="46" cy="20" r="5.8" fill="url(#knobRed)"/>
+    <ellipse cx="44.4" cy="17.8" rx="3.4" ry="2.1" fill="#fff" opacity="0.32"/>
+  </g>
+</svg>

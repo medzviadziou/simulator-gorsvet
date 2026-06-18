@@ -1,0 +1,38 @@
+.alarm {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
+    pointer-events: none;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    height: 20px;
+  }
+
+  &--on {
+    background: linear-gradient(135deg, #cb0000, #650101);
+    border-image: linear-gradient(135deg, #490000, #904444) 1;
+  }
+
+  &--off {
+    background: linear-gradient(135deg, #89cb00, #06491a);
+    border-image: linear-gradient(135deg, #06491a, #7dbf7b) 1;
+  }
+
+  &--idle {
+    background: linear-gradient(135deg, #727272, #040404);
+    border-image: linear-gradient(135deg, #1c1c1c, #8c8c8c) 1;
+  }
+}

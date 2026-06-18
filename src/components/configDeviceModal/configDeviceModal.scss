@@ -1,0 +1,109 @@
+.config-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: rgba(21, 29, 34, 0.5);
+}
+
+.config-modal__window {
+  width: min(calc(100vw - 16px), calc((100vh - 16px) * 1.116144));
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.config-modal__body {
+  padding: 0;
+  background: transparent;
+}
+
+.config-modal__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 961 / 861;
+}
+
+.config-modal__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.config-modal__hotspot {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  overflow: visible;
+  background: rgba(32, 118, 194, 0.12);
+  border: 0;
+  box-shadow: none;
+  cursor: help;
+}
+
+.config-modal__hotspot--square {
+  border-radius: 2px;
+}
+
+.config-modal__hotspot--rect {
+  border-radius: 3px;
+}
+
+.config-modal__hotspot--close {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.config-modal__hotspot:hover,
+.config-modal__hotspot:focus-visible {
+  z-index: 10;
+  background: rgba(255, 203, 71, 0.28);
+  outline: none;
+}
+
+.config-modal__hotspot--close:hover,
+.config-modal__hotspot--close:focus-visible {
+  background: transparent;
+  border: 0;
+}
+
+.config-modal__hotspot span {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  display: none;
+  width: max-content;
+  min-width: 42px;
+  max-width: min(380px, 44vw);
+  padding: 6px 9px;
+  color: #1d2c33;
+  background: #fffdf5;
+  border: 1px solid #b9a46d;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  font: 700 12px/1.2 Arial, sans-serif;
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+}
+
+.config-modal__hotspot:hover span,
+.config-modal__hotspot:focus-visible span {
+  display: block;
+}
+
+.config-modal__hotspot--close span,
+.config-modal__hotspot--close:hover span,
+.config-modal__hotspot--close:focus-visible span {
+  display: none;
+}
