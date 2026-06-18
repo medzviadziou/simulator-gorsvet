@@ -52,6 +52,7 @@
     align-items: center;
     margin: 2px 0;
     padding: 0 2px;
+    white-space: nowrap;
   }
 
   &__fault-list {
@@ -112,8 +113,9 @@
   .configurator {
     width: 100%;
     min-width: 0;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
     gap: 6px;
     font-size: 12px;
 
@@ -124,6 +126,7 @@
     &__panel,
     .time-config {
       width: 100%;
+      min-width: 0;
     }
 
     &__panel {
@@ -156,14 +159,9 @@
 
     &__panel--faults,
     &__panel--start-errors,
-    &__panel--fuse-errors {
-      width: 270px;
-      max-width: 100%;
-    }
-
+    &__panel--fuse-errors,
     &__panel--control {
-      width: 300px;
-      max-width: 100%;
+      justify-self: stretch;
     }
 
     &__channels {
@@ -206,7 +204,7 @@
     }
 
     &__channel-block .channel {
-      width: 290px;
+      width: 100%;
       max-width: 100%;
       margin: 0 auto;
       grid-template-rows: 16px 96px;
@@ -233,12 +231,76 @@
       grid-auto-flow: column;
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: repeat(3, auto);
-      gap: 0;
+      gap: 0 4px;
     }
 
     &__panel-title {
       padding: 3px 6px;
       font-size: 12px;
+    }
+  }
+}
+
+@media (min-width: 570px) and (max-width: 1100px) {
+  .configurator {
+    grid-template-columns: minmax(270px, 0.95fr) minmax(290px, 1.05fr);
+    grid-auto-flow: row dense;
+    align-items: start;
+
+    &__panel--faults,
+    &__panel--start-errors,
+    &__panel--fuse-errors {
+      grid-column: 1;
+    }
+
+    &__panel--faults {
+      grid-row: 1;
+    }
+
+    &__panel--start-errors {
+      grid-row: 2;
+    }
+
+    &__panel--fuse-errors {
+      grid-row: 3;
+    }
+
+    &__panel--control {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+
+    &__panel--state,
+    .time-config {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+@media (max-width: 569px) {
+  .configurator {
+    &__panel--faults {
+      order: 1;
+    }
+
+    &__panel--start-errors {
+      order: 2;
+    }
+
+    &__panel--fuse-errors {
+      order: 3;
+    }
+
+    &__panel--control {
+      order: 4;
+    }
+
+    &__panel--state {
+      order: 5;
+    }
+
+    .time-config {
+      order: 6;
     }
   }
 }

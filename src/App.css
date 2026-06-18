@@ -364,7 +364,7 @@ body,
 @media (max-width: 640px) {
   .app {
     gap: 6px;
-    padding: 6px;
+    padding: 0;
   }
 
   .app__main,
