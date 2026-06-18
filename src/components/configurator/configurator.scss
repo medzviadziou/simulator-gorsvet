@@ -168,7 +168,7 @@
       width: 100%;
       min-width: 0;
       flex-direction: column;
-      align-items: stretch;
+      align-items: flex-start;
       gap: 6px;
       margin: 5px;
       padding: 0 0 5px;
@@ -176,11 +176,12 @@
 
     &__channel-panel {
       flex: none;
-      width: calc(100% - 10px);
+      width: min(300px, calc(100% - 10px));
     }
 
     &__module {
-      max-width: none;
+      width: max-content;
+      max-width: calc(100% - 10px);
     }
 
     &__module-grid {
@@ -204,7 +205,7 @@
     }
 
     &__channel-block .channel {
-      width: 100%;
+      width: 290px;
       max-width: 100%;
       margin: 0 auto;
       grid-template-rows: 16px 96px;
@@ -268,6 +269,22 @@
     &__panel--control {
       grid-column: 2;
       grid-row: 1 / span 3;
+      align-self: stretch;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__panel--control > &__panel-title {
+      flex: none;
+    }
+
+    &__panel--control &__channels {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-width: thin;
     }
 
     &__panel--state,
@@ -301,6 +318,14 @@
 
     .time-config {
       order: 6;
+    }
+
+    &__panel--control,
+    &__panel--faults,
+    &__panel--start-errors,
+    &__panel--fuse-errors {
+      width: min(100%, 300px);
+      justify-self: start;
     }
   }
 }
