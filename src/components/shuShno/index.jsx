@@ -1,5 +1,5 @@
 import "./shuShno.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import bgImage from "../../assets/img/000.png";
 import img318 from "../../assets/img/318.png";
@@ -29,8 +29,24 @@ export default function ShuShno({ simulatorState, virtualTime, timeSchedule, dis
     const topRed1On = Boolean(channelRelayStates.km1?.commandOn);
     const topRed2On = Boolean(channelRelayStates.km2?.commandOn);
     const topRed3On = Boolean(channelRelayStates.km3?.commandOn);
+    const isTouchControlMode = useTouchControlMode();
     const handleMpPressStart = () => dispatch(actions.setMpPressed(true));
     const handleMpPressEnd = () => dispatch(actions.setMpPressed(false));
+    const handleMpToggle = () => dispatch(actions.toggleMp());
+    const mpButtonHandlers = isTouchControlMode
+        ? {
+            onClick: handleMpToggle,
+            "aria-label": `MP ${simulatorState.mpPressed ? "opened" : "closed"}`,
+        }
+        : {
+            onPointerEnter: handleMpPressStart,
+            onPointerLeave: handleMpPressEnd,
+            onPointerCancel: handleMpPressEnd,
+            onPointerDown: handleMpPressStart,
+            onFocus: handleMpPressStart,
+            onBlur: handleMpPressEnd,
+            "aria-label": "MP",
+        };
 
     useEffect(() => {
         if (!isKp104Disabled) {
@@ -82,13 +98,7 @@ export default function ShuShno({ simulatorState, virtualTime, timeSchedule, dis
                             <button
                                 type="button"
                                 className="shu-shno__mp-toggle"
-                                onPointerEnter={handleMpPressStart}
-                                onPointerLeave={handleMpPressEnd}
-                                onPointerCancel={handleMpPressEnd}
-                                onPointerDown={handleMpPressStart}
-                                onFocus={handleMpPressStart}
-                                onBlur={handleMpPressEnd}
-                                aria-label="MP"
+                                {...mpButtonHandlers}
                             >
                                 <img
                                     src={simulatorState.mpPressed ? imgMpOn : imgMpOff}
@@ -209,4 +219,29 @@ export default function ShuShno({ simulatorState, virtualTime, timeSchedule, dis
             </div>
         </div>
     );
+}
+
+function useTouchControlMode() {
+    const [isTouchControlMode, setIsTouchControlMode] = useState(() => {
+        if (typeof window === "undefined" || !window.matchMedia) {
+            return false;
+        }
+
+        return window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    });
+
+    useEffect(() => {
+        if (typeof window === "undefined" || !window.matchMedia) {
+            return undefined;
+        }
+
+        const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
+        const handleChange = () => setIsTouchControlMode(mediaQuery.matches);
+
+        handleChange();
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, []);
+
+    return isTouchControlMode;
 }
