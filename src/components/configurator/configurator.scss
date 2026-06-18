@@ -113,43 +113,59 @@
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 6px;
 
     &__column {
-      flex: none;
-      width: 100%;
-      min-width: 0;
+      display: contents;
     }
 
-    &__column:first-child,
-    &__column:nth-child(2) {
-      flex: none;
+    &__panel,
+    .time-config {
       width: 100%;
-      min-width: 0;
     }
 
     &__panel {
-      width: 100%;
       overflow: hidden;
     }
 
-    &__column:nth-child(2) > &__panel:first-child {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
+    &__panel--control {
+      order: 1;
+    }
+
+    &__panel--faults {
+      order: 2;
+    }
+
+    &__panel--start-errors {
+      order: 3;
+    }
+
+    &__panel--fuse-errors {
+      order: 4;
+    }
+
+    &__panel--state {
+      order: 5;
+    }
+
+    .time-config {
+      order: 6;
     }
 
     &__channels {
-      width: max-content;
-      min-width: 830px;
-      align-items: flex-start;
-      padding-bottom: 4px;
+      width: 100%;
+      min-width: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
+      margin: 5px;
+      padding: 0 0 5px;
     }
 
     &__channel-panel {
-      flex: 0 0 270px;
-      width: 270px;
+      flex: none;
+      width: calc(100% - 10px);
     }
 
     &__module {
@@ -163,6 +179,32 @@
 
     &__module-row {
       width: max-content;
+    }
+
+    &__panel--control > &__panel-title {
+      margin-bottom: 0;
+      padding: 5px 8px;
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    &__channel-block {
+      padding: 0 6px 6px;
+    }
+
+    &__channel-block .channel {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      grid-template-columns: 64px 30px 34px minmax(0, 1fr);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .configurator {
+    &__channel-block .channel {
+      grid-template-columns: 58px 28px 32px minmax(0, 1fr);
     }
   }
 }

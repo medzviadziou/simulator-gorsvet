@@ -43,7 +43,7 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
     return (
         <div className={`configurator ${disabled ? "configurator--disabled" : ""}`}>
             <div className="configurator__column">
-                <div className="configurator__panel">
+                <div className="configurator__panel configurator__panel--faults">
                     <div className="configurator__panel-title">Неисправности</div>
                     <div className="configurator__fault-list">
                         <Fault text="Нет питания" value={normalFaultValue} />
@@ -54,7 +54,7 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
                     </div>
                 </div>
 
-                <div className="configurator__panel">
+                <div className="configurator__panel configurator__panel--start-errors">
                     <div className="configurator__panel-title">Ошибки включения</div>
                     <div className="configurator__fault-list configurator__fault-list--grid">
                         {startErrorValues.map((value, i) => (
@@ -63,7 +63,7 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
                     </div>
                 </div>
 
-                <div className="configurator__panel">
+                <div className="configurator__panel configurator__panel--fuse-errors">
                     <div className="configurator__panel-title">Ошибки предохранителей</div>
                     <div className="configurator__fault-list configurator__fault-list--grid">
                         {fuseErrorValues.map((value, i) => (
@@ -74,7 +74,7 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
             </div>
 
             <div className="configurator__column">
-                <div className="configurator__panel">
+                <div className="configurator__panel configurator__panel--control">
                     <div className="configurator__panel-title">Контроль каналов управления</div>
                     <div className="configurator__channels">
                         <div className="configurator__channel-panel">
@@ -92,7 +92,7 @@ export default function Configurator({ simulatorState, virtualTime, setVirtualTi
                     </div>
                 </div>
 
-                <div className="configurator__panel">
+                <div className="configurator__panel configurator__panel--state">
                     <div className="configurator__panel-title">Индикация состояния</div>
 
                     <div className="configurator__module configurator__panel">
