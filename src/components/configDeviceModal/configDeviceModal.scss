@@ -94,7 +94,24 @@
   font: 700 12px/1.2 Arial, sans-serif;
   text-align: left;
   white-space: normal;
+  overflow-wrap: anywhere;
   pointer-events: none;
+}
+
+.config-modal__hotspot--tooltip-left span {
+  left: 0;
+  transform: none;
+}
+
+.config-modal__hotspot--tooltip-right span {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.config-modal__hotspot--tooltip-below span {
+  top: calc(100% + 6px);
+  bottom: auto;
 }
 
 .config-modal__hotspot:hover span,
@@ -106,4 +123,32 @@
 .config-modal__hotspot--close:hover span,
 .config-modal__hotspot--close:focus-visible span {
   display: none;
+}
+
+@media (hover: none), (max-width: 640px) {
+  .config-modal {
+    padding: 6px;
+  }
+
+  .config-modal__window {
+    width: min(calc(100vw - 12px), calc((100dvh - 12px) * 1.116144));
+  }
+
+  .config-modal__hotspot span,
+  .config-modal__hotspot--tooltip-left span,
+  .config-modal__hotspot--tooltip-right span,
+  .config-modal__hotspot--tooltip-below span {
+    position: fixed;
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
+    top: auto;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    max-height: min(34dvh, 210px);
+    overflow-y: auto;
+    transform: none;
+    -webkit-overflow-scrolling: touch;
+  }
 }

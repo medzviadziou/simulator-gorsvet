@@ -70,6 +70,24 @@ const CONFIG_HOTSPOTS = [
     },
 ];
 
+const getTooltipPlacementClass = (hotspot) => {
+    const centerX = (hotspot.x + hotspot.width / 2) / CONFIG_IMAGE_SIZE.width;
+    const centerY = (hotspot.y + hotspot.height / 2) / CONFIG_IMAGE_SIZE.height;
+    const classes = [];
+
+    if (centerX < 0.28) {
+        classes.push("config-modal__hotspot--tooltip-left");
+    } else if (centerX > 0.72) {
+        classes.push("config-modal__hotspot--tooltip-right");
+    }
+
+    if (centerY < 0.3) {
+        classes.push("config-modal__hotspot--tooltip-below");
+    }
+
+    return classes.join(" ");
+};
+
 export default function ConfigDeviceModal({ onClose }) {
     return (
         <div className="config-modal" role="dialog" aria-modal="true" aria-label="Конфигурация на устройстве" onMouseDown={onClose}>
@@ -80,7 +98,7 @@ export default function ConfigDeviceModal({ onClose }) {
                         {CONFIG_HOTSPOTS.map((hotspot) => (
                             <button
                                 key={hotspot.id}
-                                className={`config-modal__hotspot config-modal__hotspot--${hotspot.shape}`}
+                                className={`config-modal__hotspot config-modal__hotspot--${hotspot.shape} ${getTooltipPlacementClass(hotspot)}`}
                                 type="button"
                                 aria-label={hotspot.label}
                                 onClick={() => {
