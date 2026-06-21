@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef, useState } from "react";
 import "./configDeviceModal.scss";
 import configImage from "../../assets/img/Config.png";
 
@@ -70,40 +71,85 @@ const CONFIG_HOTSPOTS = [
     },
 ];
 
-const getTooltipPlacementClass = (hotspot) => {
-    const centerX = (hotspot.x + hotspot.width / 2) / CONFIG_IMAGE_SIZE.width;
-    const centerY = (hotspot.y + hotspot.height / 2) / CONFIG_IMAGE_SIZE.height;
-    const classes = [];
-
-    if (centerX < 0.28) {
-        classes.push("config-modal__hotspot--tooltip-left");
-    } else if (centerX > 0.72) {
-        classes.push("config-modal__hotspot--tooltip-right");
-    }
-
-    if (centerY < 0.3) {
-        classes.push("config-modal__hotspot--tooltip-below");
-    }
-
-    return classes.join(" ");
-};
-
 export default function ConfigDeviceModal({ onClose }) {
+    const imageWrapRef = useRef(null);
+    const tooltipRef = useRef(null);
+    const [activeHotspot, setActiveHotspot] = useState(null);
+    const [tooltipPosition, setTooltipPosition] = useState(null);
+
+    useLayoutEffect(() => {
+        if (!activeHotspot || !imageWrapRef.current || !tooltipRef.current) {
+            setTooltipPosition(null);
+            return undefined;
+        }
+
+        const updateTooltipPosition = () => {
+            const imageWrap = imageWrapRef.current;
+            const tooltip = tooltipRef.current;
+
+            if (!imageWrap || !tooltip) {
+                return;
+            }
+
+            const margin = 8;
+            const gap = 6;
+            const scaleX = imageWrap.clientWidth / CONFIG_IMAGE_SIZE.width;
+            const scaleY = imageWrap.clientHeight / CONFIG_IMAGE_SIZE.height;
+            const hotspotLeft = activeHotspot.x * scaleX;
+            const hotspotTop = activeHotspot.y * scaleY;
+            const hotspotRight = (activeHotspot.x + activeHotspot.width) * scaleX;
+            const hotspotBottom = (activeHotspot.y + activeHotspot.height) * scaleY;
+            const tooltipWidth = tooltip.offsetWidth;
+            const tooltipHeight = tooltip.offsetHeight;
+            const maxLeft = Math.max(margin, imageWrap.clientWidth - tooltipWidth - margin);
+            const maxTop = Math.max(margin, imageWrap.clientHeight - tooltipHeight - margin);
+            const centeredLeft = (hotspotLeft + hotspotRight - tooltipWidth) / 2;
+            const spaceAbove = hotspotTop - gap - margin;
+            const spaceBelow = imageWrap.clientHeight - hotspotBottom - gap - margin;
+            const placeBelow = tooltipHeight > spaceAbove && spaceBelow >= spaceAbove;
+            const preferredTop = placeBelow
+                ? hotspotBottom + gap
+                : hotspotTop - tooltipHeight - gap;
+
+            setTooltipPosition({
+                left: Math.min(Math.max(centeredLeft, margin), maxLeft),
+                top: Math.min(Math.max(preferredTop, margin), maxTop),
+            });
+        };
+
+        updateTooltipPosition();
+
+        const resizeObserver = new ResizeObserver(updateTooltipPosition);
+        resizeObserver.observe(imageWrapRef.current);
+
+        return () => resizeObserver.disconnect();
+    }, [activeHotspot]);
+
+    const activateHotspot = (hotspot) => {
+        setActiveHotspot(hotspot.action === "close" ? null : hotspot);
+    };
+
     return (
         <div className="config-modal" role="dialog" aria-modal="true" aria-label="Конфигурация на устройстве" onMouseDown={onClose}>
             <div className="config-modal__window" onMouseDown={(event) => event.stopPropagation()}>
                 <div className="config-modal__body">
-                    <div className="config-modal__image-wrap">
+                    <div className="config-modal__image-wrap" ref={imageWrapRef}>
                         <img className="config-modal__image" src={configImage} alt="Конфигурация на устройстве" />
                         {CONFIG_HOTSPOTS.map((hotspot) => (
                             <button
                                 key={hotspot.id}
-                                className={`config-modal__hotspot config-modal__hotspot--${hotspot.shape} ${getTooltipPlacementClass(hotspot)}`}
+                                className={`config-modal__hotspot config-modal__hotspot--${hotspot.shape}`}
                                 type="button"
                                 aria-label={hotspot.label}
+                                onMouseEnter={() => activateHotspot(hotspot)}
+                                onMouseLeave={() => setActiveHotspot(null)}
+                                onFocus={() => activateHotspot(hotspot)}
+                                onBlur={() => setActiveHotspot(null)}
                                 onClick={() => {
                                     if (hotspot.action === "close") {
                                         onClose();
+                                    } else {
+                                        activateHotspot(hotspot);
                                     }
                                 }}
                                 style={{
@@ -112,10 +158,19 @@ export default function ConfigDeviceModal({ onClose }) {
                                     width: `${(hotspot.width / CONFIG_IMAGE_SIZE.width) * 100}%`,
                                     height: `${(hotspot.height / CONFIG_IMAGE_SIZE.height) * 100}%`,
                                 }}
-                            >
-                                <span>{hotspot.label}</span>
-                            </button>
+                            />
                         ))}
+                        {activeHotspot && (
+                            <div
+                                id="config-modal-tooltip"
+                                ref={tooltipRef}
+                                className="config-modal__tooltip"
+                                role="tooltip"
+                                style={tooltipPosition ?? undefined}
+                            >
+                                {activeHotspot.label}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

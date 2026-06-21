@@ -27,6 +27,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 961 / 861;
+  overflow: hidden;
 }
 
 .config-modal__image {
@@ -48,7 +49,14 @@
 }
 
 .config-modal__hotspot--square {
+  z-index: 3;
   border-radius: 2px;
+}
+
+.config-modal__hotspot--square::before {
+  position: absolute;
+  inset: -4px;
+  content: "";
 }
 
 .config-modal__hotspot--rect {
@@ -75,17 +83,17 @@
   border: 0;
 }
 
-.config-modal__hotspot span {
+.config-modal__tooltip {
   position: absolute;
   z-index: 20;
-  left: 50%;
-  bottom: calc(100% + 6px);
-  transform: translateX(-50%);
-  display: none;
+  left: 8px;
+  top: 8px;
   width: max-content;
   min-width: 42px;
-  max-width: min(380px, 44vw);
+  max-width: min(380px, calc(100% - 16px));
+  max-height: calc(100% - 16px);
   padding: 6px 9px;
+  overflow-y: auto;
   color: #1d2c33;
   background: #fffdf5;
   border: 1px solid #b9a46d;
@@ -98,33 +106,6 @@
   pointer-events: none;
 }
 
-.config-modal__hotspot--tooltip-left span {
-  left: 0;
-  transform: none;
-}
-
-.config-modal__hotspot--tooltip-right span {
-  right: 0;
-  left: auto;
-  transform: none;
-}
-
-.config-modal__hotspot--tooltip-below span {
-  top: calc(100% + 6px);
-  bottom: auto;
-}
-
-.config-modal__hotspot:hover span,
-.config-modal__hotspot:focus-visible span {
-  display: block;
-}
-
-.config-modal__hotspot--close span,
-.config-modal__hotspot--close:hover span,
-.config-modal__hotspot--close:focus-visible span {
-  display: none;
-}
-
 @media (hover: none), (max-width: 640px) {
   .config-modal {
     padding: 6px;
@@ -134,21 +115,8 @@
     width: min(calc(100vw - 12px), calc((100dvh - 12px) * 1.116144));
   }
 
-  .config-modal__hotspot span,
-  .config-modal__hotspot--tooltip-left span,
-  .config-modal__hotspot--tooltip-right span,
-  .config-modal__hotspot--tooltip-below span {
-    position: fixed;
-    left: max(10px, env(safe-area-inset-left));
-    right: max(10px, env(safe-area-inset-right));
-    top: auto;
-    bottom: max(10px, env(safe-area-inset-bottom));
-    width: auto;
+  .config-modal__tooltip {
     min-width: 0;
-    max-width: none;
-    max-height: min(34dvh, 210px);
-    overflow-y: auto;
-    transform: none;
-    -webkit-overflow-scrolling: touch;
+    font-size: 11px;
   }
 }
