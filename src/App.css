@@ -383,12 +383,16 @@ body,
   }
 
   .app__panel--skada {
-    height: 520px;
-    min-height: 520px;
+    height: auto;
+    min-height: 0;
+  }
+
+  .app__skada {
+    overflow: visible;
   }
 
   .app__skada > .skada {
-    min-width: 860px;
+    min-width: 0;
   }
 
   .app__main > .shu-shno {
@@ -402,11 +406,11 @@ body,
 
 @media (max-width: 420px) {
   .app__panel--skada {
-    height: 500px;
-    min-height: 500px;
+    height: auto;
+    min-height: 0;
   }
 
   .app__skada > .skada {
-    min-width: 830px;
+    min-width: 0;
   }
 }

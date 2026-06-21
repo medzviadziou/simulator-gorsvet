@@ -958,6 +958,35 @@ $skada-latched-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
   }
 }
 
+@media (max-width: 640px) {
+  .skada {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+
+    &__canvas,
+    &__side {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    &__side--left {
+      order: 1;
+    }
+
+    &__side--right {
+      order: 2;
+    }
+
+    &__canvas {
+      order: 3;
+      aspect-ratio: 7 / 5;
+    }
+  }
+}
+
 @keyframes skada-fault-blink {
   0%,
   49% {
